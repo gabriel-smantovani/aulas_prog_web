@@ -64,14 +64,7 @@ class Ponto
 
 }
 
-$ponto1 = new Ponto(1, 1);
-$ponto2 = new Ponto(3, 3);
-$ponto3 = new Ponto(5, 5);
-$ponto4 = new Ponto(3, 1);
-$ponto5 = new Ponto(2, 3);
-$ponto6 = new Ponto(5, 5);
-
-function calcularDistanciaDoisPontosAleatorios(int $x1, int $y1, int $x2, int $y2): float
+function calcDist2PontosNPD(int $x1, int $y1, int $x2, int $y2): float
 {
     return sqrt(pow(($x2 - $x1), 2) + pow(($y2 - $y1), 2));
 }

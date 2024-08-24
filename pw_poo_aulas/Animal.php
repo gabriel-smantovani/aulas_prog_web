@@ -2,7 +2,7 @@
 
 //HERANÇA
 
-abstract class Animal() {   //não pode ser instanciada e precisa que seu método sem corpo seja usado em todas as classes que a extendem
+abstract class Animal {   //não pode ser instanciada e precisa que seu método sem corpo seja usado em todas as classes que a extendem
 
     protected $nome;    //protected permite acessar em classes que extendem a classe em questão
     protected $raca;
