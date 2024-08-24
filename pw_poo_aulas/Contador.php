@@ -1,0 +1,23 @@
+<?php
+
+class Contador {
+    
+    public static $contador = 0;
+
+    public static function incremento() {
+        self::$contador++;    //:: substitui as setinhas para os estáticos
+    }
+
+    public static function decremento() {
+        self::$contador--;
+    }
+
+}
+
+Contador::incremento();
+Contador::incremento();
+Contador::decremento();
+
+echo Contador::$contador;
+
+?>
