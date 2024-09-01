@@ -10,24 +10,24 @@ abstract class Telefone
 
     abstract public function calculaCusto(int $tempo): float;
 
-    public function setDDD(int $ddd): void
-    {
-        $this->ddd = $ddd;
-    }
-
     public function getDDD(): int
     {
         return $this->ddd;
     }
 
-    public function setNroTelefone(int $nroTelefone): void
+    public function setDDD(int $ddd): void
     {
-        $this->nroTelefone = $nroTelefone;
+        $this->ddd = $ddd;
     }
 
     public function getNroTelefone(): int
     {
         return $this->nroTelefone;
+    }
+
+    public function setNroTelefone(int $nroTelefone): void
+    {
+        $this->nroTelefone = $nroTelefone;
     }
 
 }
@@ -50,14 +50,14 @@ class Fixo extends Telefone
         return $tempo * $custoMinuto; 
     }
 
-    public function setCustoMinuto(float $custoMinuto): void
-    {
-        $this->custoMinuto = $custoMinuto;
-    }
-
     public function getCustoMinuto(): float
     {
         return $this->custoMinuto;
+    }
+
+    public function setCustoMinuto(float $custoMinuto): void
+    {
+        $this->custoMinuto = $custoMinuto;
     }
 
 }
@@ -71,24 +71,24 @@ abstract class Celular extends Telefone
 
     abstract public function calculaCusto(int $tempo): float;
 
-    public function setCustoMinuto(float $custoMinuto): void
-    {
-        $this->custoMinuto = $custoMinuto;
-    }
-
     public function getCustoMinuto(): float
     {
         return $this->custoMinuto;
     }
 
-    public function setNomeOperadora(float $nomeOperadora): void
+    public function setCustoMinuto(float $custoMinuto): void
     {
-        $this->nomeOperadora = $nomeOperadora;
+        $this->custoMinuto = $custoMinuto;
     }
 
     public function getNomeOperadora(): float
     {
         return $this->nomeOperadora;
+    }
+
+    public function setNomeOperadora(float $nomeOperadora): void
+    {
+        $this->nomeOperadora = $nomeOperadora;
     }
 
 }
@@ -97,7 +97,7 @@ abstract class Celular extends Telefone
 class PrePago extends Celular
 {
 
-    private float $acrescimo = 1.4;
+    private float $acrescimo = 0.4;
 
     public function __construct(int $ddd, int $nroTelefone, float $custoMinuto, $nomeOperadora)
     {
@@ -107,19 +107,19 @@ class PrePago extends Celular
         $this->nomeOperadora = $nomeOperadora;
     }
 
-    public function setAcrescimo(float $acrescimo): void
-    {
-        $this->acrescimo = $acrescimo;
-    }
-
     public function getAcrescimo(): float
     {
         return $this->acrescimo;
     }
+
+    public function setAcrescimo(float $acrescimo): void
+    {
+        $this->acrescimo = $acrescimo;
+    }
     
     public function calculaCusto(int $tempo): float
     {
-        return $tempo * $custoMinuto * $acrescimo; 
+        return $tempo * $custoMinuto * (1 + $acrescimo); 
     }
 
 }
@@ -138,14 +138,14 @@ class PosPago extends Celular
         $this->nomeOperadora = $nomeOperadora;
     }
 
-    public function setAcrescimo(float $acrescimo): void
-    {
-        $this->acrescimo = $acrescimo;
-    }
-
     public function getAcrescimo(): float
     {
         return $this->acrescimo;
+    }
+    
+    public function setAcrescimo(float $acrescimo): void
+    {
+        $this->acrescimo = $acrescimo;
     }
     
     public function calculaCusto(int $tempo): float
