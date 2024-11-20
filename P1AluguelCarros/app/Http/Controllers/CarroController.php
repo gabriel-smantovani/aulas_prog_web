@@ -26,7 +26,11 @@ class CarroController extends Controller
             'modelo' => 'required|string|min:3|max:30',
             'ano' => 'required|integer|between:1900,2025',
             'cor' => 'required|string|min:3|max:30',
+            'valor' => 'required|min:1'
         ]);
+
+        $validado['valor'] = str_replace(',', '.', $validado['valor']);
+        $validado['alugado'] = 0;
 
         Carro::create($validado);
 
@@ -49,15 +53,20 @@ class CarroController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $carro = Carro::findOrFail($id);
+        
         $validado = $request->validate([
-            'placa' => 'required|string|size:7|unique:carros',
+            'placa' => 'required', //muito obrigado, Guilherme
             'marca' => 'required|string|min:3|max:30',
             'modelo' => 'required|string|min:3|max:30',
             'ano' => 'required|integer|between:1900,2025',
             'cor' => 'required|string|min:3|max:30',
+            'valor' => 'required|min:1'
         ]);
+
+        $validado['valor'] = str_replace(',', '.', $validado['valor']);
+        $validado['alugado'] = $carro->alugado;
     
-        $carro = Carro::findOrFail($id);
         $carro->update($validado);
     
         return redirect()->route('carros.index')->with('success', 'Carro atualizado com sucesso!');

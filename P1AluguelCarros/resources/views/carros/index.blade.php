@@ -29,44 +29,49 @@
 </style>
 
 @section('content')
-
-<article class="action-title-page">
-    <h2>CARROS</h3>
-</article>
-<article class="article-tabela">
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="width: 20%">Marca</th>
-                <th style="width: 20%">Modelo</th>
-                <th style="width: 10%">Ano</th>
-                <th style="width: 20%">Cor</th>
-                <th style="width: 30%">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($carros as $carro)
-                <tr>
-                    <td>{{ $carro->marca }}</td>
-                    <td>{{ $carro->modelo }}</td>
-                    <td>{{ $carro->ano }}</td>
-                    <td>{{ $carro->cor }}</td>
-                    <td>
-                        <a href="{{ route('carros.show', $carro->id) }}" class="btn btn-info">Detalhes</a>
-                        <a href="{{ route('carros.edit', $carro->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('carros.destroy', $carro->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</article>
-<article class="rodape">
-    <a href="{{ route('carros.create') }}" class="btn btn-primary mb-3">Novo carro</a>
-</article>
-    
+    @auth
+        <article class="action-title-page">
+            <h2>CARROS</h3>
+        </article>
+        <article class="article-tabela">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%">Situação</th>
+                        <th style="width: 10%">Marca</th>
+                        <th style="width: 20%">Modelo</th>
+                        <th style="width: 10%">Ano</th>
+                        <th style="width: 30%">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($carros as $carro)
+                        <tr>
+                            <td>{{ $carro->estaAlugado() }}</td>
+                            <td>{{ $carro->marca }}</td>
+                            <td>{{ $carro->modelo }}</td>
+                            <td>{{ $carro->ano }}</td>
+                            <td>
+                                <a href="{{ route('carros.show', $carro->id) }}" class="btn btn-info">Detalhes</a>
+                                <a href="{{ route('carros.edit', $carro->id) }}" class="btn btn-warning">Editar</a>
+                                @if($carro->alugado == 0)
+                                    <a href="{{ route('contratos.create', ['carro_id' => $carro->id]) }}" class="btn btn-primary">Alugar</a>
+                                @else
+                                    <a class="btn btn-primary" disabled>Alugado</a>
+                                @endif
+                                <form action="{{ route('carros.destroy', $carro->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </article>
+        <article class="rodape">
+            <a href="{{ route('carros.create') }}" class="btn btn-primary mb-3">Novo carro</a>
+        </article>
+    @endauth
 @endsection

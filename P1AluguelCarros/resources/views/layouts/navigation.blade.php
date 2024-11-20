@@ -13,10 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Larucar') }}
+                        {{ __('SACarros') }}
                     </x-nav-link>
                     <x-nav-link :href="route('carros.index')" :active="request()->routeIs('carros.index')">
                         {{ __('Carros') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contratos.index')" :active="request()->routeIs('contratos.index')">
+                        {{ __('Contratos') }}
                     </x-nav-link>
                 </div>
             </div>

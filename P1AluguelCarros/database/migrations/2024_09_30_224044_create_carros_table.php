@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('modelo', 30);
             $table->integer('ano')->unsigned()->checkBetween(1900, 2025);
             $table->string('cor', 30);
+            $table->float('valor');
+            $table->integer('alugado')->unsigned()->checkBetween(0, 1);
             $table->timestamps();
         });
     }
